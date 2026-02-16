@@ -3,8 +3,7 @@
 A real-time bookmark management application built with Next.js and Supabase.
 
 ## Live Demo
-🔗 [[https://your-app.vercel.app](https://smart-bookmark-app-mu-eight.vercel.app
-)
+🔗 [Link](https://smart-bookmark-app-mu-eight.vercel.app)
 
 ## Features
 - Google OAuth authentication
