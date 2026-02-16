@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Smart Bookmark Manager
 
-## Getting Started
+A real-time bookmark management application built with Next.js and Supabase.
 
-First, run the development server:
+## Live Demo
+🔗 [[https://your-app.vercel.app](https://smart-bookmark-app-mu-eight.vercel.app
+)
 
+## Features
+- Google OAuth authentication
+- Private bookmarks per user
+- Real-time updates across tabs
+- Clean, responsive UI
+
+## Tech Stack
+- Next.js 14 (App Router)
+- Supabase (Auth, Database, Realtime)
+- Tailwind CSS
+- TypeScript
+
+## Problems & Solutions
+
+### 1. Server vs Client Components
+**Problem:** Confusion between server and client Supabase instances
+**Solution:** Created separate utilities - `lib/supabase/client.ts` for browser, `lib/supabase/server.ts` for SSR
+
+### 2. Real-time Not Working
+**Problem:** Realtime subscriptions weren't receiving updates
+**Solution:** Had to manually enable Realtime for the bookmarks table in Supabase dashboard
+
+### 3. Deployment Auth Issues
+**Problem:** Google OAuth broke after deploying to Vercel
+**Solution:** Updated authorized redirect URIs in both Supabase settings and Google Cloud Console
+
+## Local Setup
 ```bash
+npm install
+# Add .env.local with Supabase credentials
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Database Schema
+```sql
+create table bookmarks (
+  id uuid primary key,
+  user_id uuid references auth.users,
+  title text,
+  url text,
+  created_at timestamp
+);
+```
