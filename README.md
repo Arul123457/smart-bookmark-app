@@ -66,6 +66,7 @@ Supabase requires explicitly enabling realtime for tables. I executed:
 
 ```sql
 alter publication supabase_realtime add table bookmarks;
+alter table bookmarks replica identity full;
 ```
 
 After enabling this, live updates worked correctly across multiple tabs.
@@ -128,6 +129,7 @@ create policy "Users can delete own bookmarks"
   using (auth.uid() = user_id);
 
 alter publication supabase_realtime add table bookmarks;
+alter table bookmarks replica identity full;
 ```
 
 ---
